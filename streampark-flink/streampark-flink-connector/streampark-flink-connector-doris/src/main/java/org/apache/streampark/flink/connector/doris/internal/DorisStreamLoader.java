@@ -17,6 +17,8 @@
 
 package org.apache.streampark.flink.connector.doris.internal;
 
+import io.openpixee.security.HostValidator;
+import io.openpixee.security.Urls;
 import org.apache.streampark.connector.doris.conf.DorisConfig;
 import org.apache.streampark.flink.connector.doris.bean.DorisSinkBufferEntry;
 import org.apache.streampark.flink.connector.doris.bean.LoadStatusFailedException;
@@ -266,7 +268,7 @@ public class DorisStreamLoader implements Serializable {
 
   private boolean tryHttpConnection(String host) {
     try {
-      URL url = new URL(host);
+      URL url = Urls.create(host, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
       HttpURLConnection co = (HttpURLConnection) url.openConnection();
       co.setConnectTimeout(dorisConfig.timeout());
       co.connect();
