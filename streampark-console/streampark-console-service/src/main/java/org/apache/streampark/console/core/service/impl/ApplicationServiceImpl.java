@@ -17,6 +17,7 @@
 
 package org.apache.streampark.console.core.service.impl;
 
+import io.openpixee.security.Filenames;
 import org.apache.streampark.common.conf.ConfigConst;
 import org.apache.streampark.common.conf.Workspace;
 import org.apache.streampark.common.enums.DevelopmentMode;
@@ -305,7 +306,7 @@ public class ApplicationServiceImpl extends ServiceImpl<ApplicationMapper, Appli
   @Override
   public String upload(MultipartFile file) throws Exception {
     File temp = WebUtils.getAppTempDir();
-    String fileName = FilenameUtils.getName(Objects.requireNonNull(file.getOriginalFilename()));
+    String fileName = FilenameUtils.getName(Objects.requireNonNull(Filenames.toSimpleFileName(file.getOriginalFilename())));
     File saveFile = new File(temp, fileName);
     // delete when exists
     if (saveFile.exists()) {
