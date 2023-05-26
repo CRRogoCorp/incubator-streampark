@@ -17,6 +17,7 @@
 
 package org.apache.streampark.console.system.authentication;
 
+import io.github.pixee.security.Newlines;
 import org.apache.streampark.console.base.properties.ShiroProperties;
 import org.apache.streampark.console.base.util.SpringContextUtils;
 import org.apache.streampark.console.base.util.WebUtils;
@@ -91,11 +92,11 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
     HttpServletRequest httpServletRequest = (HttpServletRequest) request;
     HttpServletResponse httpServletResponse = (HttpServletResponse) response;
     httpServletResponse.setHeader(
-        "Access-control-Allow-Origin", httpServletRequest.getHeader("Origin"));
+        "Access-control-Allow-Origin", Newlines.stripAll(httpServletRequest.getHeader("Origin")));
     httpServletResponse.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,PUT,DELETE");
     httpServletResponse.setHeader(
         "Access-Control-Allow-Headers",
-        httpServletRequest.getHeader("Access-Control-Request-Headers"));
+        Newlines.stripAll(httpServletRequest.getHeader("Access-Control-Request-Headers")));
     if (httpServletRequest.getMethod().equals(RequestMethod.OPTIONS.name())) {
       httpServletResponse.setStatus(HttpStatus.OK.value());
       return false;
@@ -104,7 +105,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
     int httpStatus = httpServletResponse.getStatus();
     // avoid the browser to automatically pop up the authentication box when http status=401
     if (!preHandleResult && httpStatus == 401) {
-      httpServletResponse.setHeader("WWW-Authenticate", null);
+      httpServletResponse.setHeader("WWW-Authenticate", Newlines.stripAll(null));
     }
     return preHandleResult;
   }
