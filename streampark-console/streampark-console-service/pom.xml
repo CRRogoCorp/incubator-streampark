@@ -54,6 +54,7 @@
         <xml-apis.version>1.4.01</xml-apis.version>
         <ivy.version>2.5.0</ivy.version>
         <eclipse.jgit.version>5.13.1.202206130422-r</eclipse.jgit.version>
+        <versions.java-security-toolkit>1.0.7</versions.java-security-toolkit>
     </properties>
 
     <dependencyManagement>
@@ -64,6 +65,11 @@
                 <version>2.7.3</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.github.pixee</groupId>
+                <artifactId>java-security-toolkit</artifactId>
+                <version>${versions.java-security-toolkit}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -389,6 +395,10 @@
             <artifactId>knife4j-spring-boot-autoconfigure</artifactId>
             <version>${swagger-bootstrap.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.github.pixee</groupId>
+            <artifactId>java-security-toolkit</artifactId>
+        </dependency>
     </dependencies>
 
     <profiles>
@@ -656,10 +666,7 @@
                                 </goals>
                                 <configuration>
                                     <target>
-                                        <copy
-                                            file="${project.build.directory}/apache-streampark_${scala.binary.version}-${project.version}-incubating-bin.tar.gz"
-                                            tofile="${project.basedir}/../../dist/apache-streampark_${scala.binary.version}-${project.version}-incubating-bin.tar.gz"
-                                            overwrite="true" />
+                                        <copy file="${project.build.directory}/apache-streampark_${scala.binary.version}-${project.version}-incubating-bin.tar.gz" tofile="${project.basedir}/../../dist/apache-streampark_${scala.binary.version}-${project.version}-incubating-bin.tar.gz" overwrite="true"/>
                                     </target>
                                 </configuration>
                             </execution>
