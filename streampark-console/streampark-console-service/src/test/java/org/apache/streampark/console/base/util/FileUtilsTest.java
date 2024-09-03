@@ -17,6 +17,7 @@
 
 package org.apache.streampark.console.base.util;
 
+import java.security.SecureRandom;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -36,7 +37,7 @@ class FileUtilsTest {
     Path filePath = tempDir.resolve("tmp_file");
     File file = filePath.toFile();
     FileOutputStream outputStream = new FileOutputStream(file);
-    Random random = new Random();
+    Random random = new SecureRandom();
     int fileSize = 1000000;
     byte[] fileBytes = new byte[fileSize];
     random.nextBytes(fileBytes);
@@ -79,7 +80,7 @@ class FileUtilsTest {
     Path filePath = tempDir.resolve("tmp_file");
     File file = filePath.toFile();
     FileOutputStream outputStream = new FileOutputStream(file);
-    Random random = new Random();
+    Random random = new SecureRandom();
     int fileSize = 1000000;
     byte[] fileBytes = new byte[fileSize];
     random.nextBytes(fileBytes);
