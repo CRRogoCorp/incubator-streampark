@@ -17,6 +17,7 @@
 
 package org.apache.streampark.console.base.util;
 
+import java.security.SecureRandom;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.util.ByteSource;
 
@@ -51,7 +52,7 @@ public final class ShaHashUtils {
    */
   public static String getRandomSalt(int length) {
     String base = "abcdefghijklmnopqrstuvwxyz0123456789";
-    Random random = new Random();
+    Random random = new SecureRandom();
     StringBuilder builder = new StringBuilder();
     for (int i = 0; i < length; i++) {
       int number = random.nextInt(base.length());
